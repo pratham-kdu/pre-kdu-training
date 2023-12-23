@@ -1,0 +1,31 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise-2-JavaScript</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+    <div class="calculator-container">
+        <h1>Exercise 2 : JavaScript</h1>
+        <div class="input-container">
+            <div class="user-input-container">
+                <label for="input1" >NUM 1 </label>
+                <input type="number" name="input1" id="input1" placeholder="Enter first number" onchange="updateValue()">
+            </div>
+            <div class="user-input-container">
+                <label for="input2" >NUM 2 </label>
+                <input type="number" name="input2" id="input2" placeholder="Enter second number" onchange="updateValue()">
+            </div>
+        </div>
+        <div class="operation-container">
+            <button type="button" onclick="add()">+</button>
+            <button type="button" onclick="subtract()">-</button>
+            <button type="button" onclick="multiply()">*</button>
+            <button type="button" onclick="divide()">/</button>
+        </div>
+        <h1 id="output"></h1>
+    </div>
+    <script src="./assets/js/calculator.js"></script>
+</body>
+</html>
