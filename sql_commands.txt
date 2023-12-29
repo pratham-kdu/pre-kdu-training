@@ -1,0 +1,93 @@
+mysql> CREATE DATABASE employee;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> USE employee;
+Database changed
+
+mysql> CREATE TABLE department( department_id INT PRIMARY KEY, department_name VARCHAR(50) );
+Query OK, 0 rows affected (0.07 sec)
+
+
+mysql> CREATE TABLE employee( employee_id INT PRIMARY KEY, employee_name VARCHAR(50), salary INT, department_id INT, FOREIGN KEY (department_id) REFERENCES
+department(department_id));
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| employee           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| test               |
++--------------------+
+6 rows in set (0.01 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_employee |
++--------------------+
+| department         |
+| employee           |
++--------------------+
+2 rows in set (0.00 sec)
+
+mysql> describe department;
++-----------------+-------------+------+-----+---------+-------+
+| Field           | Type        | Null | Key | Default | Extra |
++-----------------+-------------+------+-----+---------+-------+
+| department_id   | int         | NO   | PRI | NULL    |       |
+| department_name | varchar(50) | YES  |     | NULL    |       |
++-----------------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> describe employee;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| employee_id   | int         | NO   | PRI | NULL    |       |
+| employee_name | varchar(50) | YES  |     | NULL    |       |
+| salary        | int         | YES  |     | NULL    |       |
+| department_id | int         | YES  | MUL | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into department values (1,"hr"), (2,"software development"), (3,"design");
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> insert into employee values (1,"pratham",5000,1),(2,"ram",50000,2),(3,"shyam",10000,3);
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select employee_id,employee_name,department_name from department dept join employee emp on dept.department_id=emp.department_id;
++-------------+---------------+----------------------+
+| employee_id | employee_name | department_name      |
++-------------+---------------+----------------------+
+|           1 | pratham       | hr                   |
+|           2 | ram           | software development |
+|           3 | shyam         | design               |
++-------------+---------------+----------------------+
+3 rows in set (0.00 sec)
+
+mysql> select employee_id,employee_name,salary from employee order by salary desc;
++-------------+---------------+--------+
+| employee_id | employee_name | salary |
++-------------+---------------+--------+
+|           2 | ram           |  50000 |
+|           3 | shyam         |  10000 |
+|           1 | pratham       |   5000 |
++-------------+---------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select avg(salary),department_name from department dept join employee emp on dept.department_id=emp.department_id group by emp.department_id;
++-------------+----------------------+
+| avg(salary) | department_name      |
++-------------+----------------------+
+|   5000.0000 | hr                   |
+|  50000.0000 | software development |
+|  10000.0000 | design               |
++-------------+----------------------+
+3 rows in set (0.01 sec)
